@@ -7,8 +7,23 @@
 //
 
 import UIKit
+import Parse
 
 class HomeViewController: UIViewController {
+
+    @IBAction func loggingOutBTN(_ sender: Any) {
+        PFUser.logOutInBackground(block: { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("Successful loggout")
+                // Load and show the login view controller
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let login = storyboard.instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
+                self.present(login, animated: true, completion: nil)
+            }
+        })
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
